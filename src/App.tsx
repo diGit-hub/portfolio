@@ -2,16 +2,6 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sun, Moon } from "lucide-react";
 import { SwitchDark } from "./components/ui/switchdark";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Badge } from "./components/ui/badge";
 import { ProjectsSection } from "./components/custom/projectsSection";
 
 function App() {
