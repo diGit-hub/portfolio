@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { ArrowUpRight, Check, X, Layers } from "lucide-react";
 
 // Dados simulados
@@ -15,7 +14,6 @@ const projectsData = [
 ];
 
 export function ProjectsSection() {
-    // Estado de seleção múltipla
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
     const toggleTag = (tag: string) => {
@@ -32,34 +30,28 @@ export function ProjectsSection() {
     });
 
     return (
-        <section className="w-full">
+        <section className="w-auto px-12 glass-elevated py-12 rounded-4xl m-12">
 
-            {/* 1. Header da Seção: Alinhado à esquerda com tipografia técnica */}
-            <div className="mb-16 space-y-4">
-                <div className="flex items-center gap-3">
-                    <div className="h-px w-8 bg-blue-500/50" />
-                    <h2 className="text-blue-500 font-mono text-xs tracking-[0.3em] uppercase opacity-80">
-                        // Selected Works
-                    </h2>
-                </div>
-                <h3 className="text-4xl md:text-5xl font-bold tracking-tighter text-foreground">
+            {/* Section Header */}
+            <div className="flex flex-col items-center text-center mb-20 space-y-4 mt-8">
+                <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-foreground">
                     Featured Projects
-                </h3>
-                <p className="text-muted-foreground/60 max-w-lg text-lg leading-relaxed">
+                </h2>
+                <p className="text-muted-foreground max-w-lg text-lg leading-relaxed">
                     A curated selection of digital products focusing on interactivity and performance.
                 </p>
             </div>
 
             <div className="flex flex-col lg:flex-row gap-12 items-start">
 
-                {/* 2. SIDEBAR DE FILTROS - Estilo "Painel de Controle" */}
+                {/*Sidebar Filter*/}
                 <aside className="w-full lg:w-72 flex-shrink-0 lg:sticky lg:top-32">
 
-                    {/* Container Glassy para os filtros */}
+                    {/* Glassy Container*/}
                     <div className="rounded-[32px] border border-white/10 bg-white/5 p-6 backdrop-blur-md">
                         <div className="flex items-center justify-between mb-6">
                             <span className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted-foreground/80">
-                                <Layers className="size-3" /> Filter Stack
+                                <Layers className="size-3" /> Filter by tags
                             </span>
 
                             {selectedTags.length > 0 && (

@@ -93,30 +93,46 @@
 }
 
 @layer utilities {
+
+  /* --- CAMADA BASE (Nível 1) --- */
+  /* Granulação pesada, desfoque total, transparência quase zero */
   .glass-panel {
-    @apply bg-white/40 dark:bg-[#1a1b2e]/60 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-xl;
+    @apply bg-white/[0.01] dark:bg-black/[0.1] backdrop-blur-[40px] border border-white/[0.05] shadow-2xl;
     position: relative;
     overflow: hidden;
-    isolation: isolate;
   }
 
-  .glass-panel::before {
+  /* O Grão HD (fica na base) */
+  .glass-panel::after {
     content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    opacity: 0.07;
-    pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    background-size: 120px 120px;
+    @apply absolute inset-0 z-0 pointer-events-none opacity-25;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 100px 100px;
     mix-blend-mode: overlay;
+    filter: contrast(250%) brightness(100%);
   }
 
-  .bg-mesh {
-    background-color: var(--background);
-    background-image:
-      radial-gradient(at 0% 0%, oklch(0.4 0.15 260 / 0.3) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, oklch(0.4 0.2 300 / 0.2) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, oklch(0.3 0.1 240 / 0.3) 0px, transparent 50%);
+  /* --- COMPONENTES ELEVADOS (Nível 2 e 3) --- */
+  /* O Rim-Light e a Claridade */
+  .glass-elevated {
+    @apply bg-white/40 dark:bg-white/5 backdrop-blur-3xl shadow-xl transition-all duration-300;
+    position: relative;
+    /* Rim Light: Uma borda interna sutil no topo para simular luz vindo de cima */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3), 0 10px 30px -10px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Se você colocar um glass-elevated dentro de outro, 
+     aumentamos o brilho e o rim-light automaticamente */
+  .glass-elevated .glass-elevated {
+    @apply bg-white/80 dark:bg-white/15 border-white/40 shadow-2xl;
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.5), 0 15px 40px -10px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Rim Light específico para o topo (o brilho na quina) */
+  .rim-light {
+    @apply absolute inset-0 rounded-[inherit] pointer-events-none;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, transparent 40%);
+    z-index: 1;
   }
 }
