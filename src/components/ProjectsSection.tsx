@@ -1,5 +1,5 @@
-import { Button, Card, Col, Row, Space, Tag, Typography } from 'antd';
-import { ArrowRightOutlined, ClockCircleOutlined, CodeOutlined, RobotOutlined } from '@ant-design/icons';
+import { Card, Col, Row, Space, Tag, Typography } from 'antd';
+import { ClockCircleOutlined, CodeOutlined, ExpandAltOutlined, RobotOutlined } from '@ant-design/icons';
 import type { Copy, Locale } from '../data/content';
 import { projects } from '../data/projects';
 
@@ -29,8 +29,9 @@ export default function ProjectsSection({ text, locale, onSelect }: Props) {
               className="flex h-full flex-col overflow-hidden [&>.ant-card-body]:flex-1"
               cover={
                 <div className="project-preview">
-                  <button type="button" className="block w-full cursor-pointer border-0 bg-transparent p-0 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#1677ff]" onClick={() => onSelect(index)} aria-label={`${text.view} ${project.name}`}>
-                    <img className="block aspect-video w-full object-cover object-top" src={project.preview} alt={`${project.name} — ${project[locale].type}`} loading="lazy" width={1536} height={864} />
+                  <button type="button" className="project-preview-trigger block w-full cursor-pointer border-0 bg-transparent p-0 focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[#1677ff]" onClick={() => onSelect(index)} aria-label={`${text.view} ${project.name}`} aria-haspopup="dialog">
+                    <img className="project-preview-image block aspect-video w-full object-cover object-top" src={project.preview} alt={`${project.name} — ${project[locale].type}`} loading="lazy" width={1536} height={864} />
+                    <span className="project-preview-open" aria-hidden="true"><ExpandAltOutlined /></span>
                   </button>
                   <div className="project-preview-badges">
                     {project.badges.map(badge => (
@@ -39,9 +40,6 @@ export default function ProjectsSection({ text, locale, onSelect }: Props) {
                   </div>
                 </div>
               }
-              actions={[
-                <Button key="case-study" type="link" icon={<ArrowRightOutlined />} onClick={() => onSelect(index)}>{text.view}</Button>,
-              ]}
             >
               <Card.Meta title={project.name} description={project[locale].type} />
               <Typography.Paragraph type="secondary" className="!mt-4">{project[locale].summary}</Typography.Paragraph>

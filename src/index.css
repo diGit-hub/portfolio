@@ -72,6 +72,38 @@
   isolation: isolate;
 }
 
+.project-preview-trigger {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-preview-open {
+  position: absolute;
+  z-index: 1;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgb(255 255 255 / 65%);
+  border-radius: 6px;
+  background: rgb(15 23 42 / 80%);
+  color: #fff;
+  font-size: 18px;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .project-preview-image {
+    transition: transform 300ms ease;
+  }
+
+  .project-preview-trigger:is(:hover, :focus-visible) .project-preview-image {
+    transform: scale(1.05);
+  }
+}
+
 .project-preview::after {
   content: '';
   position: absolute;
