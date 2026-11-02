@@ -18,8 +18,7 @@ export default function Hero({ text }: { text: Copy }) {
         </div>
       </div>
       <div>
-        <Typography.Text type="secondary">{text.role}</Typography.Text>
-        <Typography.Title level={1} className="!mt-3 max-[800px]:!text-[30px]">
+        <Typography.Title level={1} className="!mt-0 max-[800px]:!text-[30px]">
           {text.headline.start}
           <span className="hero-marker">
             {text.headline.emphasis}
