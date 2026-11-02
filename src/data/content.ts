@@ -1,6 +1,9 @@
 export type Locale = 'pt' | 'en';
 export const copy = {
   "pt": {
+    "toggleTheme": "Alternar tema escuro",
+    "lightTheme": "Ativar tema claro",
+    "darkTheme": "Ativar tema escuro",
     "nav": "Projetos",
     "contact": "Contato",
     "role": "Frontend Developer",
@@ -36,6 +39,9 @@ export const copy = {
     "cvNote": "Currículo recuperado dos arquivos da Funval."
   },
   "en": {
+    "toggleTheme": "Toggle dark theme",
+    "lightTheme": "Use light theme",
+    "darkTheme": "Use dark theme",
     "nav": "Projects",
     "contact": "Contact",
     "role": "Frontend Developer",

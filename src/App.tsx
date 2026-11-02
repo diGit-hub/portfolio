@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Button, ConfigProvider, Segmented, Typography } from 'antd';
-import { GlobalOutlined, MailOutlined } from '@ant-design/icons';
+import { Button, ConfigProvider, Segmented, Tooltip, Typography, theme } from 'antd';
+import { GlobalOutlined, MailOutlined, MoonOutlined, SunOutlined } from '@ant-design/icons';
 import enUS from 'antd/locale/en_US';
 import ptBR from 'antd/locale/pt_BR';
 import Hero from './components/Hero';
@@ -10,8 +10,10 @@ import ConstellationBackground from './components/ConstellationBackground';
 import { copy } from './data/content';
 import type { Locale } from './data/content';
 import { projects } from './data/projects';
+import useTheme from './hooks/useTheme';
 
 export default function App() {
+  const { isDark, toggleTheme } = useTheme();
   const [locale, setLocale] = useState<Locale>(() => {
     try { return localStorage.getItem('portfolio-language') === 'en' ? 'en' : 'pt'; }
     catch { return 'pt'; }
@@ -27,30 +29,56 @@ export default function App() {
   }, [locale]);
 
   return (
-    <ConfigProvider locale={locale === 'pt' ? ptBR : enUS}>
+    <ConfigProvider
+      locale={locale === 'pt' ? ptBR : enUS}
+      theme={{
+        algorithm: isDark ? theme.darkAlgorithm : theme.defaultAlgorithm,
+        token: isDark ? {
+          colorBgBase: '#11151b',
+          colorBgContainer: '#1a2029',
+          colorBgElevated: '#202733',
+          colorBorderSecondary: '#2b3340',
+        } : {},
+      }}
+    >
       <div className="page-container">
-        <header className="section-inset flex min-h-20 items-center justify-between gap-4 border-b border-[#f0f0f0] py-4">
+        <header className="section-inset flex min-h-20 items-center justify-between gap-4 border-b border-[var(--page-border)] py-4">
           <Typography.Text strong className="text-xl! min-[601px]:text-2xl!">Gabriel Mercês</Typography.Text>
-          <div className="flex shrink-0 items-center gap-2">
-            <GlobalOutlined aria-hidden="true" className="text-base text-neutral-500" />
-            <div
-              role="button"
-              tabIndex={0}
-              aria-label={locale === 'pt' ? 'Idioma: português. Alternar para inglês.' : 'Language: English. Switch to Portuguese.'}
-              className="cursor-pointer rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1677ff]"
-              onClick={() => setLocale(current => current === 'pt' ? 'en' : 'pt')}
-              onKeyDown={event => {
-                if (event.key === 'Enter' || event.key === ' ') {
-                  event.preventDefault();
-                  if (!event.repeat) setLocale(current => current === 'pt' ? 'en' : 'pt');
-                }
-              }}
-            >
-              <div inert aria-hidden="true" className="pointer-events-none">
-                <Segmented<Locale>
-                  options={[{ label: 'PT', value: 'pt' }, { label: 'EN', value: 'en' }]}
-                  value={locale}
-                />
+          <div className="flex shrink-0 items-center gap-4 min-[601px]:gap-5">
+            <Tooltip title={isDark ? text.lightTheme : text.darkTheme}>
+              <Button
+                type="default"
+                size="middle"
+                className="size-8! p-0! text-base!"
+                icon={isDark ? <SunOutlined /> : <MoonOutlined />}
+                aria-label={text.toggleTheme}
+                aria-pressed={isDark}
+                onClick={toggleTheme}
+              />
+            </Tooltip>
+            <div className="flex items-center gap-2">
+              <GlobalOutlined aria-hidden="true" className="language-icon text-base" />
+              <div
+                role="button"
+                tabIndex={0}
+                aria-label={locale === 'pt' ? 'Idioma: português. Alternar para inglês.' : 'Language: English. Switch to Portuguese.'}
+                className="cursor-pointer rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1677ff]"
+                onClick={() => setLocale(current => current === 'pt' ? 'en' : 'pt')}
+                onKeyDown={event => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    if (!event.repeat) setLocale(current => current === 'pt' ? 'en' : 'pt');
+                  }
+                }}
+              >
+                <div inert aria-hidden="true" className="pointer-events-none">
+                  <Segmented<Locale>
+                    size="middle"
+                    className="h-8!"
+                    options={[{ label: 'PT', value: 'pt' }, { label: 'EN', value: 'en' }]}
+                    value={locale}
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -58,7 +86,7 @@ export default function App() {
         <main>
           <Hero text={text} />
           <ProjectsSection text={text} locale={locale} onSelect={setSelectedProject} />
-          <section id="contato" className="constellation-section section-inset contact-section flex flex-col items-start justify-between gap-6 border-t border-[#f0f0f0] min-[801px]:flex-row min-[801px]:items-center">
+          <section id="contato" className="constellation-section section-inset contact-section flex flex-col items-start justify-between gap-6 border-t border-[var(--page-border)] min-[801px]:flex-row min-[801px]:items-center">
             <ConstellationBackground seed={41} />
             <div>
               <Typography.Title level={3} className="m-0!">{text.cta}</Typography.Title>
@@ -67,7 +95,7 @@ export default function App() {
             <Button type="primary" href="mailto:gabriel.merces.dev@gmail.com" icon={<MailOutlined />}>{text.contact}</Button>
           </section>
         </main>
-        <footer className="section-inset flex flex-col justify-between gap-2 border-t border-[#f0f0f0] py-6 min-[601px]:flex-row min-[601px]:gap-4">
+        <footer className="section-inset flex flex-col justify-between gap-2 border-t border-[var(--page-border)] py-6 min-[601px]:flex-row min-[601px]:gap-4">
           <Typography.Text type="secondary" className="text-xs!">© 2026 Gabriel Mercês</Typography.Text>
           <Typography.Text type="secondary" className="text-xs!">{text.footer}</Typography.Text>
         </footer>

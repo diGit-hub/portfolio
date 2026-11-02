@@ -1,12 +1,33 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: light;
+  --page-background: #fff;
+  --page-text: rgb(0 0 0 / 88%);
+  --page-border: #f0f0f0;
+  --muted-icon: #737373;
   /* Outer grid, inner section spacing and the narrower introduction are distinct. */
   --page-content-max: 70rem;
   --page-gutter: clamp(1.25rem, 6vw, 5.5rem);
   --section-inset: clamp(0.75rem, 2.5vw, 2rem);
   --section-space: clamp(2.5rem, 5vw, 4.5rem);
   --hero-content-max: 60rem;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page-background: #11151b;
+  --page-text: rgb(255 255 255 / 85%);
+  --page-border: #2b3340;
+  --muted-icon: #a4afbf;
+}
+
+.language-icon {
+  color: var(--muted-icon);
+}
+
+:root[data-theme="dark"] .constellation-canvas {
+  filter: invert(1) hue-rotate(180deg);
 }
 
 .page-container {
@@ -113,7 +134,8 @@ html {
 
 body {
   margin: 0;
-  background: #fff;
+  background: var(--page-background);
+  color: var(--page-text);
 }
 
 @media (prefers-reduced-motion: reduce) {
