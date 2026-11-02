@@ -49,7 +49,7 @@ export default function App() {
               <Button
                 type="default"
                 size="middle"
-                className="size-8! p-0! text-base!"
+                className="theme-toggle size-8! p-0! text-base!"
                 icon={isDark ? <SunOutlined /> : <MoonOutlined />}
                 aria-label={text.toggleTheme}
                 aria-pressed={isDark}

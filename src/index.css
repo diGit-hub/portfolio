@@ -6,6 +6,8 @@
   --page-text: rgb(0 0 0 / 88%);
   --page-border: #f0f0f0;
   --muted-icon: #737373;
+  --theme-button-background: #fff;
+  --theme-button-border: #d4d4d4;
   /* Outer grid, inner section spacing and the narrower introduction are distinct. */
   --page-content-max: 70rem;
   --page-gutter: clamp(1.25rem, 6vw, 5.5rem);
@@ -20,6 +22,17 @@
   --page-text: rgb(255 255 255 / 85%);
   --page-border: #2b3340;
   --muted-icon: #a4afbf;
+  --theme-button-background: #262626;
+  --theme-button-border: #525252;
+}
+
+.page-container .theme-toggle.ant-btn {
+  background: var(--theme-button-background);
+  box-shadow: none;
+}
+
+.page-container .theme-toggle.ant-btn:not(:hover):not(:active) {
+  border-color: var(--theme-button-border);
 }
 
 .language-icon {
