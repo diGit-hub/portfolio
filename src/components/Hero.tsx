@@ -20,7 +20,15 @@ export default function Hero({ text }: { text: Copy }) {
       <div>
         <Typography.Text type="secondary">{text.role}</Typography.Text>
         <Typography.Title level={1} className="!mt-3 max-[800px]:!text-[30px]">
-          {text.headline}<br />{text.second}
+          {text.headline.start}
+          <span className="hero-marker">
+            {text.headline.emphasis}
+            <svg className="hero-marker-stroke" viewBox="0 0 240 24" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+              <path d="M5 14 C55 7 136 6 234 10" strokeWidth="7" opacity="0.8" />
+              <path d="M9 20 C79 13 155 12 231 15" strokeWidth="3" opacity="0.45" />
+            </svg>
+          </span>
+          {text.headline.end}
         </Typography.Title>
         <Typography.Paragraph type="secondary" className="max-w-[680px] !text-[15px] !leading-7 min-[601px]:!text-base">
           {text.intro}
