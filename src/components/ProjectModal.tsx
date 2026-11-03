@@ -17,10 +17,7 @@ export default function ProjectModal({ project, locale, text, onClose }: Props) 
   const content = project[locale];
   const sections = [
     [text.problem, content.problem],
-    [text.roleLabel, content.role],
-    [text.choices, content.choices],
     [text.result, content.result],
-    [text.next, content.next],
   ];
 
   return (

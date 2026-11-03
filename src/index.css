@@ -101,7 +101,8 @@
     transition: transform 300ms ease;
   }
 
-  .project-preview-trigger:is(:hover, :focus-visible) .project-preview-image {
+  .project-card:hover .project-preview-image,
+  .project-card:has(.project-card-trigger:focus-visible) .project-preview-image {
     transform: scale(1.05);
   }
 }
