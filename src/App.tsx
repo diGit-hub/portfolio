@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { Button, ConfigProvider, Segmented, Tooltip, Typography, theme } from 'antd';
-import { GlobalOutlined, MailOutlined, MoonOutlined, SunOutlined } from '@ant-design/icons';
+import { GlobalOutlined, MoonOutlined, SunOutlined } from '@ant-design/icons';
 import enUS from 'antd/locale/en_US';
 import ptBR from 'antd/locale/pt_BR';
 import Hero from './components/Hero';
 import ProjectsSection from './components/ProjectsSection';
 import ProjectModal from './components/ProjectModal';
 import ConstellationBackground from './components/ConstellationBackground';
+import CopyEmailButton from './components/CopyEmailButton';
 import { copy } from './data/content';
 import type { Locale } from './data/content';
 import { projects } from './data/projects';
@@ -83,7 +84,7 @@ export default function App() {
               <Typography.Title level={3} className="m-0!">{text.cta}</Typography.Title>
               <Typography.Paragraph type="secondary" className="mb-0! mt-2!">{text.ctaText}</Typography.Paragraph>
             </div>
-            <Button type="primary" href="mailto:gabriel.merces.dev@gmail.com" icon={<MailOutlined />}>{text.contact}</Button>
+            <CopyEmailButton text={text} />
           </section>
         </main>
         <footer className="section-inset flex flex-col justify-between gap-2 border-t border-[var(--page-border)] py-6 min-[601px]:flex-row min-[601px]:gap-4">
