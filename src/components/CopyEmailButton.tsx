@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Input, Tooltip, Typography, message } from 'antd';
-import { CopyOutlined } from '@ant-design/icons';
+import { MailOutlined } from '@ant-design/icons';
 import type { Copy } from '../data/content';
 
 const email = 'gabriel.merces.dev@gmail.com';
@@ -23,7 +23,7 @@ export default function CopyEmailButton({ text }: { text: Copy }) {
     <div className="flex max-w-full shrink-0 flex-col items-start gap-2 min-[801px]:items-end">
       {contextHolder}
       <Tooltip title={text.copyEmail}>
-        <Button type="primary" onClick={copyEmail} icon={<CopyOutlined />} aria-label={text.copyEmail}>
+        <Button type="primary" onClick={copyEmail} icon={<MailOutlined />} aria-label={text.copyEmail}>
           {text.email}
         </Button>
       </Tooltip>
