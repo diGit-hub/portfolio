@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button, ConfigProvider, Segmented, Tooltip, Typography, theme } from 'antd';
 import { GlobalOutlined, MailOutlined, MoonOutlined, SunOutlined } from '@ant-design/icons';
 import enUS from 'antd/locale/en_US';
@@ -11,22 +11,13 @@ import { copy } from './data/content';
 import type { Locale } from './data/content';
 import { projects } from './data/projects';
 import useTheme from './hooks/useTheme';
+import useLocale from './hooks/useLocale';
 
 export default function App() {
   const { isDark, toggleTheme } = useTheme();
-  const [locale, setLocale] = useState<Locale>(() => {
-    try { return localStorage.getItem('portfolio-language') === 'en' ? 'en' : 'pt'; }
-    catch { return 'pt'; }
-  });
+  const { locale, toggleLocale } = useLocale();
   const [selectedProject, setSelectedProject] = useState<number | null>(null);
   const text = copy[locale];
-
-  useEffect(() => {
-    document.documentElement.lang = locale === 'pt' ? 'pt-BR' : 'en';
-    document.title = 'Gabriel Mercês — Frontend Developer';
-    try { localStorage.setItem('portfolio-language', locale); }
-    catch { /* Language selection still works when browser storage is unavailable. */ }
-  }, [locale]);
 
   return (
     <ConfigProvider
@@ -63,11 +54,11 @@ export default function App() {
                 tabIndex={0}
                 aria-label={locale === 'pt' ? 'Idioma: português. Alternar para inglês.' : 'Language: English. Switch to Portuguese.'}
                 className="cursor-pointer rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1677ff]"
-                onClick={() => setLocale(current => current === 'pt' ? 'en' : 'pt')}
+                onClick={toggleLocale}
                 onKeyDown={event => {
                   if (event.key === 'Enter' || event.key === ' ') {
                     event.preventDefault();
-                    if (!event.repeat) setLocale(current => current === 'pt' ? 'en' : 'pt');
+                    if (!event.repeat) toggleLocale();
                   }
                 }}
               >
@@ -84,7 +75,7 @@ export default function App() {
           </div>
         </header>
         <main>
-          <Hero text={text} />
+          <Hero text={text} locale={locale} />
           <ProjectsSection text={text} locale={locale} onSelect={setSelectedProject} />
           <section id="contato" className="constellation-section section-inset contact-section flex flex-col items-start justify-between gap-6 border-t border-[var(--page-border)] min-[801px]:flex-row min-[801px]:items-center">
             <ConstellationBackground seed={41} />

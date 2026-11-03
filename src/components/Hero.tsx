@@ -1,11 +1,18 @@
 import { Avatar, Button, Space, Tooltip, Typography } from 'antd';
 import { DownloadOutlined, GithubOutlined, LinkedinOutlined } from '@ant-design/icons';
-import type { Copy } from '../data/content';
+import type { Copy, Locale } from '../data/content';
 import ConstellationBackground from './ConstellationBackground';
 import photo from '../assets/gabriel.jpg';
-import resume from '../assets/curriculo-gabriel-merces.pdf';
+import resumeEn from '../assets/curriculo-gabriel-merces.pdf';
+import resumePt from '../assets/curriculo-gabriel-merces-pt.pdf';
 
-export default function Hero({ text }: { text: Copy }) {
+const resumes = {
+  pt: { url: resumePt, filename: 'Gabriel-Merces-Curriculo-PT.pdf' },
+  en: { url: resumeEn, filename: 'Gabriel-Merces-Resume-EN.pdf' },
+};
+
+export default function Hero({ text, locale }: { text: Copy; locale: Locale }) {
+  const resume = resumes[locale];
   return (
     <section className="constellation-section hero-layout grid items-center gap-6 min-[601px]:grid-cols-[160px_minmax(0,1fr)] min-[601px]:gap-8 min-[801px]:grid-cols-[192px_minmax(0,1fr)] min-[801px]:gap-12">
       <ConstellationBackground />
@@ -34,7 +41,7 @@ export default function Hero({ text }: { text: Copy }) {
         </Typography.Paragraph>
         <Space size={[10, 12]} wrap>
           <Tooltip title={text.cvNote}>
-            <Button type="primary" size="large" href={resume} download="Gabriel-Merces-Resume.pdf" icon={<DownloadOutlined />}>
+            <Button type="primary" size="large" href={resume.url} download={resume.filename} icon={<DownloadOutlined />}>
               {text.cv}
             </Button>
           </Tooltip>

@@ -34,7 +34,7 @@ export const copy = {
     "all": "Ver projetos",
     "close": "Fechar",
     "photo": "Foto de Gabriel Mercês",
-    "cvNote": "Currículo recuperado dos arquivos da Funval."
+    "cvNote": "O currículo segue o idioma do site."
   },
   "en": {
     "toggleTheme": "Toggle dark theme",
@@ -70,7 +70,7 @@ export const copy = {
     "all": "View projects",
     "close": "Close",
     "photo": "Photo of Gabriel Mercês",
-    "cvNote": "Résumé recovered from the Funval files."
+    "cvNote": "Your résumé matches the site language."
   }
 };
 
